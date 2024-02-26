@@ -15,8 +15,13 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Define App Version
+      id: define-app-version
       shell: bash
       run: echo "app-version=0.0.1-${GITHUB_REF_NAME//[^a-zA-Z0-9]/}.${GITHUB_RUN_ID}${GITHUB_RUN_ATTEMPT}" >> $GITHUB_OUTPUT
+    - name: Echo app version
+      shell: bash
+      run: |
+        echo "app version: ${{ steps.define-app-version.outputs.app-version }}"
   
   create-test-release:
     needs: [ define-app-version ]
