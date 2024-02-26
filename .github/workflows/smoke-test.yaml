@@ -77,9 +77,9 @@ jobs:
           cluster-name: ${{ github.ref_name }}-${{ matrix.cluster.distribution }}-${{ matrix.cluster.version }} 
           timeout-minutes: 10
           ttl: 10m
-      - name: Write license file
-        run: |
-          echo "${{ needs.create-test-release.outputs.license-file }}" > license.yaml
+      # - name: Write license file
+      #   run: |
+      #     echo "${{ needs.create-test-release.outputs.license-file }}" > license.yaml
       - name: Export config values
         run: |
           echo "CONFIG_YAML<<EOF" >> $GITHUB_ENV
@@ -90,7 +90,7 @@ jobs:
         with: 
           kubeconfig: ${{ steps.create-cluster.outputs.cluster-kubeconfig }} 
           app-slug: craig-minimal-kots/${{ needs.create-test-release.outputs.channel-slug }}
-          license-file-path: license.yaml
+          license-file: ${{ needs.create-test-release.outputs.license-file }}
           config-values: ${{ env.CONFIG_YAML }}
           app-version-label: ${{ needs.define-app-version.outputs.app-version }}
 
