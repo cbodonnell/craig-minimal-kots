@@ -1,7 +1,7 @@
 apiVersion: kots.io/v1beta1
 kind: Config
 metadata:
-  name: craig-minimal-app-config
+  name: craig-minimal-kots-config
 spec:
   groups:
   - name: app_config
