@@ -1,0 +1,6 @@
+apiVersion: kots.io/v1beta1
+kind: Application
+metadata:
+  name: craig-minimal-app
+spec:
+  title: A Minimal KOTS Application

@@ -1,0 +1,10 @@
+apiVersion: kots.io/v1beta2
+kind: HelmChart
+metadata:
+  name: minimal
+spec:
+  chart:
+    name: minimal
+    chartVersion: 0.1.0
+
+  namespace: repl{{ Namespace }}

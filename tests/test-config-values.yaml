@@ -1,0 +1,8 @@
+apiVersion: kots.io/v1beta1
+kind: ConfigValues
+spec:
+  values:
+    trivial_config:
+      value: "1"
+    required_config:
+      value: "some-value"

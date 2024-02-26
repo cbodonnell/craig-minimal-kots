@@ -1,0 +1,19 @@
+apiVersion: kots.io/v1beta1
+kind: Config
+metadata:
+  name: craig-minimal-app-config
+spec:
+  groups:
+  - name: app_config
+    title: App Config
+    description: This is general information about the app.
+    items:
+    - name: trivial_config
+      title: Some Trivial Config
+      type: bool
+      default: "1"
+      require: true
+    - name: required_config
+      title: A Required Config
+      type: text
+      require: true
