@@ -91,7 +91,7 @@ jobs:
           kubeconfig: ${{ steps.create-cluster.outputs.cluster-kubeconfig }} 
           app-slug: craig-minimal-kots/${{ needs.create-test-release.outputs.channel-slug }}
           license-file: ${{ needs.create-test-release.outputs.license-file }}
-          config-values: ${{ env.CONFIG_YAML }}
+          # config-values: ${{ env.CONFIG_YAML }}
           app-version-label: ${{ needs.define-app-version.outputs.app-version }}
 
   cleanup-test-release:
