@@ -66,6 +66,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [ define-app-version, create-test-release ]
     steps:
+      - uses: actions/checkout@v4
       - name: Create Cluster 
         id: create-cluster 
         uses: replicatedhq/compatibility-actions/create-cluster@v1 
