@@ -12,8 +12,8 @@ spec:
       title: Some Trivial Config
       type: bool
       default: "1"
-      require: true
+      required: true
     - name: required_config
       title: A Required Config
       type: text
-      require: true
+      required: true
