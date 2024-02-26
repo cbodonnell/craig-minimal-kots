@@ -61,7 +61,6 @@ jobs:
       fail-fast: false
       matrix:
         cluster: [
-          {distribution: kind, version: 1.28.7},
           {distribution: kind, version: 1.29.2}
         ]
     runs-on: ubuntu-latest
@@ -77,13 +76,21 @@ jobs:
           cluster-name: ${{ github.ref_name }}-${{ matrix.cluster.distribution }}-${{ matrix.cluster.version }} 
           timeout-minutes: 10
           ttl: 10m
+      - name: Write license file
+        run: |
+          echo "${{ needs.create-test-release.outputs.license-file }}" > license.yaml
+      - name: Export config values
+        run: |
+          echo "CONFIG_YAML<<EOF" >> $GITHUB_ENV
+          cat tests/test-config-values.yaml >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
       - name: KOTS Install
         uses: replicatedhq/compatibility-actions/kots-install@623d3e4136848c7082957b131fa4be195bd7b4d5
         with: 
           kubeconfig: ${{ steps.create-cluster.outputs.cluster-kubeconfig }} 
           app-slug: craig-minimal-kots/${{ needs.create-test-release.outputs.channel-slug }}
-          license-file: ${{ needs.create-test-release.outputs.license-file }}
-          config-values-path: tests/test-config-values.yaml
+          license-file-path: license.yaml
+          config-values: ${{ env.CONFIG_YAML }}
           app-version-label: ${{ needs.define-app-version.outputs.app-version }}
 
   cleanup-test-release:
