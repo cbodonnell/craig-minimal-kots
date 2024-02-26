@@ -3,4 +3,4 @@ kind: Application
 metadata:
   name: craig-minimal-kots
 spec:
-  title: A Minimal KOTS Application
+  title: A Minimal KOTS Application!
