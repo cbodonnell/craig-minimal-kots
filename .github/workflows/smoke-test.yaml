@@ -77,14 +77,6 @@ jobs:
           cluster-name: ${{ github.ref_name }}-${{ matrix.cluster.distribution }}-${{ matrix.cluster.version }} 
           timeout-minutes: 10
           ttl: 10m
-      # - name: Write license file
-      #   run: |
-      #     echo "${{ needs.create-test-release.outputs.license-file }}" > license.yaml
-      - name: Export config values
-        run: |
-          echo "CONFIG_YAML<<EOF" >> $GITHUB_ENV
-          cat tests/test-config-values.yaml >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
       - name: KOTS Install
         uses: replicatedhq/compatibility-actions/kots-install@623d3e4136848c7082957b131fa4be195bd7b4d5
         with: 
