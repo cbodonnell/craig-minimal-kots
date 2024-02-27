@@ -78,12 +78,12 @@ jobs:
           timeout-minutes: 10
           ttl: 10m
       - name: KOTS Install
-        uses: replicatedhq/compatibility-actions/kots-install@623d3e4136848c7082957b131fa4be195bd7b4d5
+        uses: replicatedhq/compatibility-actions/kots-install@v1.9.0
         with: 
           kubeconfig: ${{ steps.create-cluster.outputs.cluster-kubeconfig }} 
           app-slug: craig-minimal-kots/${{ needs.create-test-release.outputs.channel-slug }}
           license-file: ${{ needs.create-test-release.outputs.license-file }}
-          config-values-path: ${{ github.workspace }}/tests/test-config-values.yaml
+          config-values: ${{ github.workspace }}/tests/test-config-values.yaml
           app-version-label: ${{ needs.define-app-version.outputs.app-version }}
 
   cleanup-test-release:
