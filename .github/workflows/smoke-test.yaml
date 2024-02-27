@@ -78,7 +78,7 @@ jobs:
           timeout-minutes: 10
           ttl: 10m
       - name: KOTS Install
-        uses: replicatedhq/compatibility-actions/kots-install@321e04eed02807c39a76b0c60f3069463e5e9ae0
+        uses: replicatedhq/compatibility-actions/kots-install@v1.9.0
         with: 
           kubeconfig: ${{ steps.create-cluster.outputs.cluster-kubeconfig }} 
           app-slug: craig-minimal-kots/${{ needs.create-test-release.outputs.channel-slug }}
