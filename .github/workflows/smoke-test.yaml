@@ -15,8 +15,13 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Define App Version
+      id: define-app-version
       shell: bash
       run: echo "app-version=0.0.1-${GITHUB_REF_NAME//[^a-zA-Z0-9]/}.${GITHUB_RUN_ID}${GITHUB_RUN_ATTEMPT}" >> $GITHUB_OUTPUT
+    - name: Echo app version
+      shell: bash
+      run: |
+        echo "app version: ${{ steps.define-app-version.outputs.app-version }}"
   
   create-test-release:
     needs: [ define-app-version ]
@@ -56,12 +61,12 @@ jobs:
       fail-fast: false
       matrix:
         cluster: [
-          {distribution: kind, version: 1.28.7},
           {distribution: kind, version: 1.29.2}
         ]
     runs-on: ubuntu-latest
-    needs: [ create-test-release ]
+    needs: [ define-app-version, create-test-release ]
     steps:
+      - uses: actions/checkout@v4
       - name: Create Cluster 
         id: create-cluster 
         uses: replicatedhq/compatibility-actions/create-cluster@v1 
@@ -77,8 +82,8 @@ jobs:
         with: 
           kubeconfig: ${{ steps.create-cluster.outputs.cluster-kubeconfig }} 
           app-slug: craig-minimal-kots/${{ needs.create-test-release.outputs.channel-slug }}
-          license-file: ${{ steps.create-customer.outputs.license-file }}
-          config-values-path: tests/test-config-values.yaml
+          license-file: ${{ needs.create-test-release.outputs.license-file }}
+          config-values-path: ${{ github.workspace }}/tests/test-config-values.yaml
           app-version-label: ${{ needs.define-app-version.outputs.app-version }}
 
   cleanup-test-release:
